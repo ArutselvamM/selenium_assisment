@@ -1,0 +1,38 @@
+package accountlogin;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
+
+public class Login 
+{
+	public static void main(String[] args) throws IOException 
+	{
+	WebDriver driver=new ChromeDriver();
+	driver.manage().window().maximize();
+	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+	driver.get("https://demo.dealsdray.com/");
+	driver.findElement(By.name("username")).sendKeys("prexo.mis@dealsdray.com");
+	driver.findElement(By.name("password")).sendKeys("prexo.mis@dealsdray.com");
+	driver.findElement(By.xpath("//button[text()='Login']")).click();
+	driver.findElement(By.xpath("//span[text()='Order']")).click();
+	driver.findElement(By.xpath("//span[text()='Orders']")).click();
+
+	driver.findElement(By.xpath("//button[text()='Add Bulk Orders']")).click();
+//	driver.findElement(By.xpath("//input[@id='mui-7']")).click();
+	driver.findElement(By.xpath("//input[@type='file']")).sendKeys("C:\\Users\\aadit\\eclipse-workspace\\selenium_assignment\\documents\\demo-data.xlsx");
+
+	TakesScreenshot ts=(TakesScreenshot) driver;
+	File temp = ts.getScreenshotAs(OutputType.FILE);
+	File dest=new File("./docscreenshots/file.png");
+	FileHandler.copy(temp, dest);
+	
+	}
+}
